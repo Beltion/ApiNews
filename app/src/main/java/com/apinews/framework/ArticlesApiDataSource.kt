@@ -29,7 +29,7 @@ class ArticlesApiDataSource(private val page: Int): ArticlesDataSource {
 
             val common = Common.retrofitService
 
-            common.getArticleResponse(100).enqueue(object : Callback<ArticleResponse>{
+            common.getArticleResponse(page).enqueue(object : Callback<ArticleResponse>{
                 override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
                     if(response.isSuccessful){
                         successCallback.onComplete(response.body())

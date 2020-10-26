@@ -1,9 +1,10 @@
 package com.apinews.presentation.articles
 
-import com.apinews.data.ArticlesRepositoryImpl
+import com.apinews.data.repositories.ArticlesRepositoryImpl
 import com.apinews.framework.ArticlesApiDataSource
 import com.core.domain.callbacks.FailureCallback
 import com.core.domain.callbacks.SuccessCallback
+import com.core.domain.entities.articles.Article
 import com.core.usecase.GetArticles
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +23,10 @@ class ArticlesModel {
 
         getArticlesUseCase.getArticles(object : SuccessCallback{
             override fun onComplete(data: Any?) {
-                successCallback.onComplete(data)
+                if (data is ArrayList<*>){
+                    successCallback.onComplete(data)
+                }
+
             }
 
         },  object : FailureCallback{

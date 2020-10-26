@@ -5,6 +5,7 @@ import com.apinews.business.ArticlesPresenter
 import com.apinews.business.ArticlesView
 import com.core.domain.callbacks.FailureCallback
 import com.core.domain.callbacks.SuccessCallback
+import com.core.domain.entities.articles.Article
 import java.lang.ref.WeakReference
 
 class ArticlesPresenterImpl : ArticlesPresenter {
@@ -18,7 +19,10 @@ class ArticlesPresenterImpl : ArticlesPresenter {
         Log.d(TAG, "Before load Articles")
         model.getArticles(object : SuccessCallback{
             override fun onComplete(data: Any?) {
-                Log.d(TAG, data.toString())
+                (data as ArrayList<Article>).let{
+                    Log.d(TAG, it.size.toString())
+                }
+
             }
 
         }, object : FailureCallback{
