@@ -12,8 +12,8 @@ class GetArticles(private val repository: ArticlesRepository) {
             }
 
         },  object : FailureCallback{
-            override fun onFailure(error: String) {
-                failureCallback.onFailure(error)
+            override fun onFailure(tag: String, error: Any) {
+                failureCallback.onFailure(tag,error)
             }
 
         })

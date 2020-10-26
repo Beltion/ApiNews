@@ -4,5 +4,6 @@ import com.core.domain.callbacks.FailureCallback
 import com.core.domain.callbacks.SuccessCallback
 
 interface ArticlesDataSource {
-    suspend fun getArticles(successCallback: SuccessCallback,failureCallback: FailureCallback)
+    suspend fun getArticles(successCallback: SuccessCallback,
+                            failureCallback: FailureCallback)
 }
