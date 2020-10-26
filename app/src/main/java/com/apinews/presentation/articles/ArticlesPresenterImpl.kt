@@ -11,19 +11,19 @@ class ArticlesPresenterImpl : ArticlesPresenter {
 
     private var view: WeakReference<ArticlesView>? = null
     private val model = ArticlesModel()
-    private val tag = ArticlesPresenterImpl::class.simpleName
+    private val TAG = ArticlesPresenterImpl::class.simpleName
 
 
     override fun onViewCreated() {
-        Log.d(tag, "Before load Articles")
+        Log.d(TAG, "Before load Articles")
         model.getArticles(object : SuccessCallback{
             override fun onComplete(data: Any?) {
-                Log.d(tag, data.toString())
+                Log.d(TAG, data.toString())
             }
 
         }, object : FailureCallback{
-            override fun onFailure(error: String) {
-                Log.e(tag, error)
+            override fun onFailure(tag: String, error: Any?) {
+                Log.e(TAG, tag + error.toString())
             }
 
         })

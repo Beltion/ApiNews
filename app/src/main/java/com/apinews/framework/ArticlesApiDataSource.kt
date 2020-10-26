@@ -14,7 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-
+import java.io.IOException
 
 
 class ArticlesApiDataSource(private val page: Int): ArticlesDataSource {
@@ -34,11 +34,19 @@ class ArticlesApiDataSource(private val page: Int): ArticlesDataSource {
                     if(response.isSuccessful){
                         successCallback.onComplete(response.body())
                     } else{
-
                         //  Every time create new Gson instance - not good...
-                        failureCallback.onFailure("$TAG onResponse-> ",
-                                Gson().fromJson(response.errorBody()!!.string(), ArticleErrorResponse::class.java)
-                        )
+                        try {
+                            val errorResponse: ArticleErrorResponse = Gson().fromJson(
+                                    response.errorBody()!!.string(),
+                                    ArticleErrorResponse::class.java
+                            )
+                            failureCallback.onFailure("$TAG onResponse-> ", errorResponse)
+                        } catch (e: IOException){
+                            e.printStackTrace()
+                            failureCallback.onFailure("$TAG onResponse !response.isSuccessful-> ", e)
+                        }
+
+
                     }
                 }
 

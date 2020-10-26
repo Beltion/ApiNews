@@ -26,7 +26,7 @@ class ArticlesModel {
             }
 
         },  object : FailureCallback{
-            override fun onFailure(tag: String, error: Any) {
+            override fun onFailure(tag: String, error: Any?) {
                 failureCallback.onFailure(tag, error)
             }
 

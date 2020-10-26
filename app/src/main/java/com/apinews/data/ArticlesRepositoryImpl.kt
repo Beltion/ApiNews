@@ -16,7 +16,7 @@ class ArticlesRepositoryImpl(private val dataSource: ArticlesApiDataSource) : Ar
             }
 
         }, object : FailureCallback{
-            override fun onFailure(tag: String, error: Any) {
+            override fun onFailure(tag: String, error: Any?) {
                 failureCallback.onFailure(tag, error)
             }
 
