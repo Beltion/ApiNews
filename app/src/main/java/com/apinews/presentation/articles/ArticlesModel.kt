@@ -1,10 +1,9 @@
 package com.apinews.presentation.articles
 
 import com.apinews.data.repositories.ArticlesRepositoryImpl
-import com.apinews.framework.ArticlesApiDataSource
+import com.apinews.framework.articles.ArticlesApiDataSource
 import com.core.domain.callbacks.FailureCallback
 import com.core.domain.callbacks.SuccessCallback
-import com.core.domain.entities.articles.Article
 import com.core.usecase.GetArticles
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,9 +18,9 @@ class ArticlesModel {
 
     fun getArticles(successCallback: SuccessCallback,
                     failureCallback: FailureCallback) = scope.launch {
-        val getArticlesUseCase = GetArticles(ArticlesRepositoryImpl(ArticlesApiDataSource(currentPage)))
+        val getArticlesUseCase = GetArticles(ArticlesRepositoryImpl(ArticlesApiDataSource()))
 
-        getArticlesUseCase.getArticles(object : SuccessCallback{
+        getArticlesUseCase.getArticles(currentPage, object : SuccessCallback{
             override fun onComplete(data: Any?) {
                 if (data is ArrayList<*>){
                     successCallback.onComplete(data)

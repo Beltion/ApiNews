@@ -1,5 +1,6 @@
 package com.apinews.presentation.articles
 
+import android.graphics.Bitmap
 import android.util.Log
 import com.apinews.business.ArticlesPresenter
 import com.apinews.business.ArticlesView
@@ -19,8 +20,10 @@ class ArticlesPresenterImpl : ArticlesPresenter {
         Log.d(TAG, "Before load Articles")
         model.getArticles(object : SuccessCallback{
             override fun onComplete(data: Any?) {
+                Log.d(TAG, "Before load Articles Images")
                 (data as ArrayList<Article>).let{
-                    Log.d(TAG, it.size.toString())
+                    view?.get()?.initRV(data)
+                    view?.get()?.showContent()
                 }
 
             }
