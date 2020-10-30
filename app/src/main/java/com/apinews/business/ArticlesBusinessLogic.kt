@@ -1,6 +1,5 @@
 package com.apinews.business
 
-import android.graphics.Bitmap
 import com.core.domain.entities.articles.Article
 import com.core.domain.presenter.BasePresenter
 import com.core.domain.view.BaseView
@@ -11,5 +10,6 @@ interface ArticlesPresenter : BasePresenter {
 
 interface ArticlesView : BaseView{
     fun initRV(articles: ArrayList<Article>)
+    fun updateRV(nextPage: ArrayList<Article>)
 }
 

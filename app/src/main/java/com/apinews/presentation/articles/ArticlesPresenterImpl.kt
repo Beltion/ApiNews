@@ -39,4 +39,25 @@ class ArticlesPresenterImpl : ArticlesPresenter {
     override fun initView(v: ArticlesView) {
         view = WeakReference(v)
     }
+
+    fun onBottomReached(){
+
+        Log.d("$TAG", "onBottomReached currentPage -> ${model.currentPage}")
+        model.getArticles(object : SuccessCallback{
+            override fun onComplete(data: Any?) {
+                Log.d(TAG, "Before load Articles Images")
+                (data as ArrayList<Article>).let{
+                    Log.d("$TAG data size", data.size.toString())
+                    view?.get()?.updateRV(data)
+                }
+
+            }
+
+        }, object : FailureCallback{
+            override fun onFailure(tag: String, error: Any?) {
+                Log.e(TAG, tag + error.toString())
+            }
+
+        })
+    }
 }

@@ -13,7 +13,7 @@ import com.core.domain.entities.articles.Article
 
 class ArticlesActivity :
     AppCompatActivity(),
-    ArticlesView{
+    ArticlesView, ArticlesAdapter.OnBottomReachedListener {
 
     private val presenter = ArticlesPresenterImpl()
 
@@ -29,10 +29,9 @@ class ArticlesActivity :
 
     override fun initRV(articles: ArrayList<Article>) {
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val adapter = ArticlesAdapter(
-            articles
-        )
+        val adapter = ArticlesAdapter(articles, this)
         rv.adapter = adapter
+
     }
 
 
@@ -52,5 +51,17 @@ class ArticlesActivity :
     override fun hideContent() {
         rv.visibility = View.INVISIBLE
         progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onBottomReached() {
+        presenter.onBottomReached()
+    }
+
+    override fun updateRV(nextPage: ArrayList<Article>){
+        (rv.adapter as ArticlesAdapter).addData(nextPage)
+    }
+
+    interface UpdateRVData{
+        fun update(arrayList: ArrayList<Article>)
     }
 }

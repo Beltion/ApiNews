@@ -14,7 +14,7 @@ class ArticlesModel {
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
-    private var currentPage = 1
+    var currentPage = 1
 
     fun getArticles(successCallback: SuccessCallback,
                     failureCallback: FailureCallback) = scope.launch {
@@ -34,6 +34,7 @@ class ArticlesModel {
             }
 
         })
+        currentPage++
     }
 
 }
