@@ -1,6 +1,5 @@
 package com.apinews.business.adaprets
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +19,7 @@ class ArticlesAdapter(
     class ArticlesVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView = itemView.findViewById<ImageView>(R.id.img_article_card)
         val title = itemView.findViewById<TextView>(R.id.title_article_card)
+        val description = itemView.findViewById<TextView>(R.id.description_article_card)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesVH {
@@ -30,8 +30,8 @@ class ArticlesAdapter(
     }
 
     override fun onBindViewHolder(holder: ArticlesVH, position: Int) {
-        Log.d("RVVV", "position: $position")
         holder.title.text = articles[position].title
+        holder.description.text = articles[position].description
 
         Picasso.get()
             .load(articles[position].urlToImage)
@@ -51,7 +51,6 @@ class ArticlesAdapter(
     }
 
     fun addData(nextPage: ArrayList<Article>){
-        Log.d("RVVV", "size: $itemCount")
         val oldSize = articles.size
         articles.addAll(nextPage)
         notifyItemRangeInserted(oldSize, nextPage.size)

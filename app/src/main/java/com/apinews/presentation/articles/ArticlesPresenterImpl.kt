@@ -42,7 +42,7 @@ class ArticlesPresenterImpl : ArticlesPresenter {
 
     fun onBottomReached(){
 
-        Log.d("$TAG", "onBottomReached currentPage -> ${model.currentPage}")
+        Log.d(TAG, "onBottomReached currentPage -> ${model.currentPage}")
         model.getArticles(object : SuccessCallback{
             override fun onComplete(data: Any?) {
                 Log.d(TAG, "Before load Articles Images")

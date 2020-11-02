@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ApiNews</string>
+    <string name="url_article_card">Источник</string>
+</resources>
