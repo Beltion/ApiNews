@@ -11,5 +11,7 @@ interface ArticlesPresenter : BasePresenter {
 interface ArticlesView : BaseView{
     fun initRV(articles: ArrayList<Article>)
     fun updateRV(nextPage: ArrayList<Article>)
+    fun checkConnection() : Boolean
+    fun getStringFromID(id: Int) : String
 }
 

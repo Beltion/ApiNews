@@ -34,6 +34,7 @@ class ArticlesApiDataSource(): ArticlesDataSource {
 
             common.getArticleResponse(page).enqueue(object : Callback<ArticleResponse> {
                 override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
+
                     if (response.isSuccessful) {
                         successCallback.onComplete(response.body())
                     } else {

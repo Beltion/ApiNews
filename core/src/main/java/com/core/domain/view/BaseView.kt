@@ -4,4 +4,5 @@ interface BaseView {
     fun init()
     fun showContent()
     fun hideContent()
+    fun showText(string: String)
 }

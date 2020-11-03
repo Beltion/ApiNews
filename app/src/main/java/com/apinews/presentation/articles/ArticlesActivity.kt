@@ -1,8 +1,11 @@
 package com.apinews.presentation.articles
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,6 +56,10 @@ class ArticlesActivity :
         progressBar.visibility = View.VISIBLE
     }
 
+    override fun showText(string: String) {
+        Toast.makeText(applicationContext, string, Toast.LENGTH_LONG).show()
+    }
+
     override fun onBottomReached() {
         presenter.onBottomReached()
     }
@@ -61,7 +68,10 @@ class ArticlesActivity :
         (rv.adapter as ArticlesAdapter).addData(nextPage)
     }
 
-    interface UpdateRVData{
-        fun update(arrayList: ArrayList<Article>)
+    override fun checkConnection() : Boolean{
+        val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.isActiveNetworkMetered
     }
+
+    override fun getStringFromID(id: Int) = applicationContext.getString(id)
 }

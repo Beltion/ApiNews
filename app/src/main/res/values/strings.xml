@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">ApiNews</string>
     <string name="url_article_card">Источник</string>
+    <string name="no_internet">Нет доступа к интернет, проверьте соединение</string>
+    <string name="some_error">Ошибка в работе приложения. Отчёт об ошибке отправлен разработчикам</string>
+    <string name="too_many_results">В достигли предела списка новостей</string>
+    <string name="another_article_response_error">Иная предусмотренная разработчиками ошибка</string>
+    <string name="load_failed">"Не удалось загрузить данные, проверьте интернет соединение "</string>
 </resources>
