@@ -1,6 +1,7 @@
 package com.apinews.presentation.articles
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
@@ -16,7 +17,7 @@ import com.core.domain.entities.articles.Article
 
 class ArticlesActivity :
     AppCompatActivity(),
-    ArticlesView, ArticlesAdapter.OnBottomReachedListener {
+    ArticlesView, ArticlesAdapter.OnArticleAdapterListener {
 
     private val presenter = ArticlesPresenterImpl()
 
@@ -64,6 +65,10 @@ class ArticlesActivity :
         presenter.onBottomReached()
     }
 
+    override fun onItemClick(link: String) {
+        presenter.omItemClick(link)
+    }
+
     override fun updateRV(nextPage: ArrayList<Article>){
         (rv.adapter as ArticlesAdapter).addData(nextPage)
     }
@@ -74,4 +79,8 @@ class ArticlesActivity :
     }
 
     override fun getStringFromID(id: Int) = applicationContext.getString(id)
+
+    override fun openLinkInBrowser(intent: Intent) {
+        startActivity(intent)
+    }
 }

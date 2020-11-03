@@ -1,5 +1,7 @@
 package com.apinews.presentation.articles
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import com.apinews.R
 import com.apinews.business.ArticlesPresenter
@@ -9,6 +11,7 @@ import com.core.domain.callbacks.SuccessCallback
 import com.core.domain.entities.articles.Article
 import com.core.domain.entities.articles.ArticleErrorResponse
 import java.io.IOException
+import java.lang.NullPointerException
 import java.lang.ref.WeakReference
 
 class ArticlesPresenterImpl : ArticlesPresenter {
@@ -104,5 +107,18 @@ class ArticlesPresenterImpl : ArticlesPresenter {
     private fun onFailureException(e: Exception) = when(e){
         is IOException -> R.string.load_failed
         else -> R.string.some_error
+    }
+
+    fun omItemClick(link: String) {
+        if(!link.isBlank()){
+            try {
+                val url = Uri.parse(link)
+                val intent = Intent(Intent.ACTION_VIEW, url)
+                view?.get()?.openLinkInBrowser(intent)
+            }catch (e: NullPointerException){
+                e.printStackTrace()
+            }
+        }
+
     }
 }

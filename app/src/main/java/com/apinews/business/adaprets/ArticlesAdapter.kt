@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso
 
 class ArticlesAdapter(
         private val articles: ArrayList<Article>,
-        private val onBottomReachedListener: OnBottomReachedListener
+        private val onArticleAdapterListener: OnArticleAdapterListener
 ): RecyclerView.Adapter<ArticlesAdapter.ArticlesVH>() {
 
 
@@ -20,6 +20,12 @@ class ArticlesAdapter(
         val imageView = itemView.findViewById<ImageView>(R.id.img_article_card)
         val title = itemView.findViewById<TextView>(R.id.title_article_card)
         val description = itemView.findViewById<TextView>(R.id.description_article_card)
+
+        fun itemClick(link: String, cl: OnArticleAdapterListener){
+            itemView.setOnClickListener {
+                cl.onItemClick(link)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesVH {
@@ -32,6 +38,10 @@ class ArticlesAdapter(
     override fun onBindViewHolder(holder: ArticlesVH, position: Int) {
         holder.title.text = articles[position].title
         holder.description.text = articles[position].description
+        holder.itemClick(
+                articles[position].url,
+                onArticleAdapterListener
+        )
 
         Picasso.get()
             .load(articles[position].urlToImage)
@@ -39,16 +49,18 @@ class ArticlesAdapter(
             .into(holder.imageView)
 
         if(position == articles.size - 1){
-            onBottomReachedListener.onBottomReached()
+            onArticleAdapterListener.onBottomReached()
         }
 
     }
 
     override fun getItemCount() = articles.size
 
-    interface OnBottomReachedListener{
+    interface OnArticleAdapterListener{
         fun onBottomReached()
+        fun onItemClick(link: String)
     }
+
 
     fun addData(nextPage: ArrayList<Article>){
         val oldSize = articles.size
