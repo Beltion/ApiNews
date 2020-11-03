@@ -6,4 +6,5 @@
     <string name="too_many_results">В достигли предела списка новостей</string>
     <string name="another_article_response_error">Иная предусмотренная разработчиками ошибка</string>
     <string name="load_failed">"Не удалось загрузить данные, проверьте интернет соединение "</string>
+    <string name="no_url">Нет сслыки на источник</string>
 </resources>

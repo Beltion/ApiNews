@@ -110,7 +110,13 @@ class ArticlesPresenterImpl : ArticlesPresenter {
     }
 
     fun omItemClick(link: String) {
-        if(!link.isBlank()){
+        if(link.isBlank()){
+            view?.get()?.let {articleView ->
+                articleView.showText(
+                        articleView.getStringFromID(R.string.no_url)
+                )
+            }
+        }else {
             try {
                 val url = Uri.parse(link)
                 val intent = Intent(Intent.ACTION_VIEW, url)
