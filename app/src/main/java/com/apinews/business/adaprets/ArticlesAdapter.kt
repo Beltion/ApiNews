@@ -43,6 +43,9 @@ class ArticlesAdapter(
                 onArticleAdapterListener
         )
 
+//        It was possible to make the upload in the main thread,
+//        but it was not possible to transfer it to another thread.
+//        So it was decided to use Picasso
         Picasso.get()
             .load(articles[position].urlToImage)
             .fit()
@@ -61,7 +64,7 @@ class ArticlesAdapter(
         fun onItemClick(link: String)
     }
 
-
+//  Update articles
     fun addData(nextPage: ArrayList<Article>){
         val oldSize = articles.size
         articles.addAll(nextPage)

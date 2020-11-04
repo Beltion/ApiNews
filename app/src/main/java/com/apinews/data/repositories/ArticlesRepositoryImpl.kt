@@ -20,6 +20,8 @@ class ArticlesRepositoryImpl(private val dataSource: ArticlesApiDataSource) : Ar
                     //  Every time create new ArticlesMapper instance - not good...
                     val articles = ArticlesMapper().responseToArticles(data)
                     successCallback.onComplete(articles)
+                } else {
+                    failureCallback.onFailure("$TAG ->","data isn't ArticleResponse")
                 }
 
             }

@@ -55,7 +55,8 @@ class ArticlesPresenterImpl : ArticlesPresenter {
         view = WeakReference(v)
     }
 
-    fun onBottomReached(){
+//    Adding news when the end of the list is reached
+    override fun onBottomReached(){
         view?.get()?.let {articlesView ->
             if(articlesView.checkConnection()){
                 Log.d(TAG, "onBottomReached currentPage -> ${model.currentPage}")
@@ -85,7 +86,8 @@ class ArticlesPresenterImpl : ArticlesPresenter {
 
     }
 
-    fun onFailureAction(error: Any?){
+//    Error handing
+    override fun onFailureAction(error: Any?){
         view?.get()?.let {articlesView ->
             val errorString = when(error){
                 is ArticleErrorResponse -> {
@@ -109,7 +111,8 @@ class ArticlesPresenterImpl : ArticlesPresenter {
         else -> R.string.some_error
     }
 
-    fun omItemClick(link: String) {
+//    ArticleCard click action
+    override fun omItemClick(link: String) {
         if(link.isBlank()){
             view?.get()?.let {articleView ->
                 articleView.showText(
