@@ -3,7 +3,10 @@ package com.apinews.presentation.articles
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -14,6 +17,7 @@ import com.apinews.R
 import com.apinews.business.ArticlesView
 import com.apinews.business.adaprets.ArticlesAdapter
 import com.core.domain.entities.articles.Article
+
 
 class ArticlesActivity :
     AppCompatActivity(),
@@ -74,8 +78,30 @@ class ArticlesActivity :
     }
 
     override fun checkConnection() : Boolean{
-        val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return cm.isActiveNetworkMetered
+        val baseContext = this.baseContext ?: return false
+        val connectivityManager = baseContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                when {
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                        return true
+                    }
+                }
+            }
+        } else {
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
+                return true
+            }
+        }
+        return false
     }
 
     override fun getStringFromID(id: Int) = applicationContext.getString(id)
